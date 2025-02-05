@@ -1,50 +1,96 @@
-# Welcome to your Expo app 👋
+# Streaks App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Streaks is a React Native application built using **Expo**, designed to help users track their activity streaks. The app keeps track of consecutive days a user logs in and provides milestone notifications.
 
-## Get started
+## Features
+- Tracks daily streaks and milestones
+- Displays notifications when streaks are updated
+- Uses **AsyncStorage** to persist streak data
+- Implements a **custom splash screen** using `expo-splash-screen`
+- Uses `react-native-toast-message` for in-app notifications
+- Supports light and dark mode
 
-1. Install dependencies
-
-   ```bash
+## Installation
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/Streak-Counter.git
+   cd streaks
+   ```
+2. Install dependencies:
+   ```sh
    npm install
    ```
-
-2. Start the app
-
-   ```bash
-    npx expo start
+   or
+   ```sh
+   yarn install
+   ```
+3. Start the application:
+   ```sh
+   expo start
    ```
 
-In the output, you'll find options to open the app in a
+## Dependencies
+- **React Native** (Expo framework)
+- **react-native-toast-message** (for notifications)
+- **expo-font** (for custom fonts)
+- **expo-splash-screen** (for splash screen handling)
+- **@react-navigation/native** (for navigation)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+## Configuration
+### **Splash Screen Setup**
+Ensure that your `app.json` includes the correct splash screen settings:
+```json
+"expo": {
+  "splash": {
+    "image": "./assets/images/snackr.jpg",
+    "resizeMode": "contain",
+    "backgroundColor": "#ffffff"
+  }
+}
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### **Notifications Setup**
+To schedule notifications, ensure `expo-notifications` is installed:
+```sh
+expo install expo-notifications
+```
 
-## Learn more
+Example trigger:
+```js
+trigger: {
+  hour: 5,
+  minute: 40,
+  repeats: true,
+},
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## How It Works
+### **Tracking Streaks**
+- The app saves the last opened date and streak count in `AsyncStorage`.
+- If the user logs in daily, their streak increases.
+- If they miss a day, the streak resets to `1`.
+- Notifications alert users about their streak progress.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### **Displaying Toast Messages**
+```js
+Toast.show({
+  type: 'info',
+  text1: 'Welcome Back!',
+  text2: `You're on a ${streaks}-day streak!`,
+});
+```
 
-## Join the community
+## Troubleshooting
+### **Splash Screen Not Showing?**
+- Ensure `expo-splash-screen` is installed.
+- Call `SplashScreen.preventAutoHideAsync();` before the app loads.
+- Call `SplashScreen.hideAsync();` after fonts and assets load.
 
-Join our community of developers creating universal apps.
+### **Notifications Not Triggering?**
+- Ensure **Expo Go** has notification permissions.
+- Check the `expo-notifications` installation and setup.
+- Restart the app and re-test scheduled notifications.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## License
+This project is open-source and available under the [MIT License](LICENSE).
+
