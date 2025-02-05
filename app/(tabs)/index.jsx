@@ -9,7 +9,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     const setupNotifications = async () => {
-      await Notifications.requestPermissionsAsync(); // Ask for permission
+      await Notifications.requestPermissionsAsync(); 
 
       await Notifications.scheduleNotificationAsync({
         content: {
@@ -21,7 +21,7 @@ export default function HomeScreen() {
           hour: 17,
           minute: 52, 
           second:0,
-          repeats: true, // Repeat daily
+          repeats: true, 
         },
       });
     };
@@ -32,7 +32,7 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       
-      <Text style={Colors.dark.text}>This is Home Page</Text>
+      <Text style={Colors.main.textColor}>This is Home Page</Text>
     </View>
   )
 }
@@ -44,7 +44,7 @@ export default function HomeScreen() {
     flex:1,
     alignItems:'center',
     justifyContent:'center',
-    backgroundColor:Colors.light.background,
+    backgroundColor:Colors.main.tabBackground,
     fontFamily:"Sansation"
   },
 

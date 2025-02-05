@@ -11,14 +11,16 @@ import Streak from '@/components/Streak.jsx';
 import LeaderBoard from '../../components/LeaderBoard.jsx';
 import Logout from '@/components/Logout.jsx';
 const profile = () => {
-//The approach here is to store the previously opened date and streak count in local storage. We try 
+
+// The approach here is to store the previously opened date and streak count in local storage. We try 
 // retrieving it first and parse it. If the values don't exist it means its the user's first time loggin in. So we set the values and exit the function
 // If the values do exits, it means it's not the user's first time, and hence we have to check if streak is maintained
-  const [date, setDate] =useState("")
+  
+  const [weeks, setWeeks] =useState(0)
   const[streaks,setStreaks] = useState(0)
   const today = new Date().toISOString().split('T')[0];
 
-const calculateStreaks = async () => {
+  const calculateStreaks = async () => {
   const lastOpened = await AsyncStorage.getItem('lastOpened'); 
   const streakCount = await AsyncStorage.getItem('streaks'); 
   
@@ -28,8 +30,9 @@ const calculateStreaks = async () => {
 
   
   setStreaks(formattedStreaks);
-  // setStreaks(100) ->uncomment this line, and comment out the above line to check for streak resetting
+  // setStreaks(21)  ->uncomment this line, comment out the above line and change streak values
 
+  
   // this means this is user's first time logging in, so the streak should be 1
   // set the last opened date and streak count, then exit
   if (!formattedLastOpened) {
@@ -74,14 +77,46 @@ const showToast = () => {
   });
 };
 
+const showMileStoneMessage=()=>{
+  if(weeks>0)
+  {
+    Toast.show({
+      type: 'success',  // 'success', 'error', 'info'
+      text1: 'Congrats John Doe',
+      text2:` You've reached a new milestone streak of ${weeks} week`,
+    });
+  } 
+ 
+}
+
 useEffect(() => {
   calculateStreaks();
 }, []);
 
 useEffect(()=>{
   showToast()
+ 
 },[streaks])
 
+useEffect(() => {
+  if (streaks % 7 === 0 && streaks !== 0) {
+    setWeeks(streaks / 7);
+  }
+}, [streaks]);
+
+
+useEffect(()=>{
+  showMileStoneMessage()
+},[weeks])
+
+
+
+useEffect(() => {
+  if (weeks != 0) 
+  {
+    showMileStoneMessage();
+  }
+}, [weeks])
 
 
   return (

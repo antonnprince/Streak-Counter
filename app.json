@@ -2,6 +2,13 @@
   "expo": {
     "name": "streaks",
     "slug": "streaks",
+    
+    "splash": {
+    "image": "./assets/images/snackr.jpg",
+    "resizeMode": "contain",
+    "backgroundColor": "#ffffff"
+    },
+
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -27,7 +34,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/snackr.jpg",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
