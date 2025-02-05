@@ -13,7 +13,7 @@ Streaks is a React Native application built using **Expo**, designed to help use
 ## Installation
 1. Clone the repository:
    ```sh
-   git clone https://github.com/yourusername/Streak-Counter.git
+   git clone https://github.com/antonnprince/Streak-Counter.git
    cd streaks
    ```
 2. Install dependencies:
