@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,StatusBar,Image } from 'react-native'
+import { StyleSheet, Text, View,StatusBar,Image,Alert } from 'react-native'
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -38,13 +38,17 @@ const profile = () => {
       <View style={{
         flexDirection:'row',
         alignItems:'center'
-      }}>
+      }}
+      >
         <Ionicons name="rocket" size={24} color="#7C3AED" 
         style={styles.streak}
         />
         <Text style={{
           fontSize:15
-        }}>
+        }}
+        onPress={()=>Alert.alert("You have a continous streak of 34 days")}
+
+        >
           34
         </Text>
       </View>
@@ -54,22 +58,19 @@ const profile = () => {
         flexDirection:'row',
         justifyContent: 'space-evenly',
         width:'100%',
-        margin:'10%',
-        padding:"6%",
-        borderRadius:'30',
-        // backgroundColor:'#D4D4D4'
+        margin:'5%',
+        padding:"4%",
+        borderRadius:'30 ',
+        // backgroundColor:'#38BDF8'
       }}
-      >
-        
-       
-       
-      
+>     
         <Text style={{color:Colors.light.text, fontSize:17, fontWeight:'bold'}}>
               Snacks 
               {'\n'}
              <Text style={{fontWeight:'thin', marginLeft:10}}>110</Text>
         </Text>
 
+  
         <Text  style={{color:Colors.light.text, fontSize:17, fontWeight:'bold'}}>
           Following
           {'\n'}
