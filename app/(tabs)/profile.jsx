@@ -11,14 +11,14 @@ const profile = () => {
 //The approach here is to store the previously opened date and streak count in local storage. We try 
 // retrieving it first and parse it. If the values don't exist it means its the user's first time loggin in. So we set the values and exit the function
 // If the values do exits, it means it's not the user's first time, and hence we have to check if streak is maintained
-
+  const [date, setDate] =useState("")
   const[streaks,setStreaks] = useState(0)
   const today = new Date().toISOString().split('T')[0];
 
 const calculateStreaks = async () => {
-  const lastOpened = await AsyncStorage.getItem('lastOpened'); // Get last opened date from storage
-  const streakCount = await AsyncStorage.getItem('streaks'); // Get streak count from storage
-
+  const lastOpened = await AsyncStorage.getItem('lastOpened'); 
+  const streakCount = await AsyncStorage.getItem('streaks'); 
+  
   // Parse retrieved values to be modified
   const formattedLastOpened = lastOpened ? JSON.parse(lastOpened) : null;
   const formattedStreaks = streakCount ? parseInt(streakCount) : 0;
