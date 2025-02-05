@@ -5,7 +5,6 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import profileImage from "../../assets/images/master.webp"
 import bg from "../../assets/images/bg.jpeg"
 import {Colors} from "../../constants/Colors.ts"
-import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const profile = () => {
@@ -16,7 +15,7 @@ const profile = () => {
   const[streaks,setStreaks] = useState(0)
   const today = new Date().toISOString().split('T')[0];
 
-const getDate = async () => {
+const calculateStreaks = async () => {
   const lastOpened = await AsyncStorage.getItem('lastOpened'); // Get last opened date from storage
   const streakCount = await AsyncStorage.getItem('streaks'); // Get streak count from storage
 
@@ -65,7 +64,7 @@ const getDate = async () => {
 };
 
 useEffect(() => {
-  getDate();
+  calculateStreaks();
 }, []);
 
 
