@@ -6,7 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import {Colors} from "../constants/Colors.ts"
 import { useColorScheme } from '@/hooks/useColorScheme';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 
 
 
@@ -17,18 +17,11 @@ export default function RootLayout() {
   const colorScheme = useColorScheme()
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    Sansation: require('../assets/fonts/Sansation-Regular.ttf')
   });
 
 
-  // const setLastOpened =async()=>{      
-  //   const todayDate = new Date().toISOString().split('T')[0]
-  //   await AsyncStorage.setItem('lastOpened',JSON.stringify(todayDate))
-    
-  // }
-
   useEffect(() => {
-    // setLastOpened()
-
     if (loaded) {
       SplashScreen.hideAsync();
     }
@@ -44,6 +37,7 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
+      <Toast />
       <StatusBar barStyle="light-content" backgroundColor={Colors.main.background} />
     </ThemeProvider>
   );

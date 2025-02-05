@@ -1,11 +1,13 @@
-import { StyleSheet, Text, View,StatusBar,Image,Alert } from 'react-native'
+import { StyleSheet, Text, View,Button,Image,Alert } from 'react-native'
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import profileImage from "../../assets/images/master.webp"
 import bg from "../../assets/images/bg.jpeg"
 import {Colors} from "../../constants/Colors.ts"
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
+import InfoCard from '../../components/InfoCard.jsx';
+import Streak from '@/components/Streak.jsx';
 
 const profile = () => {
 //The approach here is to store the previously opened date and streak count in local storage. We try 
@@ -63,107 +65,73 @@ const calculateStreaks = async () => {
   await AsyncStorage.setItem('lastOpened', JSON.stringify(today));
 };
 
+const showToast = () => {
+  Toast.show({
+    type: 'info',  // 'success', 'error', 'info'
+    text1: 'Welcome John Doe',
+    text2:` You're on a ${streaks}-day streak!`,
+  });
+};
+
 useEffect(() => {
   calculateStreaks();
 }, []);
 
+useEffect(()=>{
+  showToast()
+},[streaks])
+
+
 
   return (
         <View
-      style={styles.container}
-        >      
+      style={styles.container}>      
+    
       <Image
       source={bg}
       style={styles.profileCard} />
     
-      <View style={styles.name}>
-
-      <Image source={profileImage} style={{ width: 60, height: 60,borderRadius:50 ,resizeMode:"cover"}}   />
-
-      <Text
-      style={{color:Colors.light.text, fontSize:20, fontWeight:'bold'}}>
-        @johndoe32
-      </Text>
-
     
-        <Text
-        style={{color:Colors.light.text, fontSize:15, fontWeight:'thin'}}>
-          John Doe
-        </Text>
-
-      <View style={{
-        flexDirection:'row',
-        alignItems:'center'
-      }}
-      >
-        <Ionicons name="rocket" size={24} color="#7C3AED" 
-        style={styles.streak}
-        />
-        <Text style={{
-          fontSize:15
-        }}
-        onPress={()=>Alert.alert("You have a continous streak of 34 days")}
-
-        >
-          {streaks}
-        </Text>
-        
+      <View style={styles.name}>
+          <Image source={profileImage} style={{ width: 60, height: 60,borderRadius:50 ,resizeMode:"cover"}}   />
+          <Text
+          style={{color:Colors.light.text, fontSize:20, fontWeight:'bold', fontFamily:'Sansation'}}>
+            @johndoe32
+          </Text>
+          <Text
+          style={{color:Colors.light.text, fontSize:15, fontWeight:'thin', fontFamily:'Sansation'}}>
+            John Doe
+          </Text>
+          <View style={{
+            flexDirection:'row',
+            alignItems:'center'
+          }}
+          > 
+            {
+              streaks &&
+              <Streak streaks={streaks}/>
+            }
+              
       </View>
      
-      <View
-      style={{
-        flexDirection:'row',
-        justifyContent: 'space-evenly',
-        width:'100%',
-        margin:'5%',
-        padding:"4%",
-        borderRadius:'30 ',
-      }}
->     
-        <Text style={{color:Colors.light.text, fontSize:17, fontWeight:'bold'}}>
-              Snacks 
-              {'\n'}
-             <Text style={{fontWeight:'thin', marginLeft:10}}>110</Text>
-        </Text>
-
-  
-        <Text  style={{color:Colors.light.text, fontSize:17, fontWeight:'bold'}}>
-          Following
-          {'\n'}
-             <Text style={{fontWeight:'thin', marginLeft:10}}>40</Text>
-        </Text>
-        <Text  style={{color:Colors.light.text, fontSize:17, fontWeight:'bold'}}>
-          Followers
-          {'\n'}
-             <Text style={{fontWeight:'thin', marginLeft:10}}>50</Text>
-             </Text>
-
-             <Text  style={{color:Colors.light.text, fontSize:17, fontWeight:'bold'}}>
-          Coins
-          {'\n'}
-             <Text style={{fontWeight:'thin', marginLeft:10}}>190</Text>
-        </Text>
-      </View>
+     <InfoCard/> 
      
       
       </View>
+    
     </View>
   )
 }
 
 export default profile
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ 
   container:{
     flex:1,
     padding:8,
-    backgroundColor:Colors.light.background
-  },
-
-  imageStyle:{
+    backgroundColor:Colors.light.background,
    
   },
-
   profileCard:{
     marginHorizontal:-2,
     borderRadius:10,
@@ -179,8 +147,5 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
 
-  streak:{
-    // marginLeft:'auto',
-    
-  }
+
 })
