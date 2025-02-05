@@ -25,7 +25,7 @@ Streaks is a React Native application built using **Expo**, designed to help use
    ```
 3. Start the application:
    ```sh
-   expo start
+    npx expo start
    ```
 
 ## Dependencies
