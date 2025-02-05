@@ -5,8 +5,10 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import {Colors} from "../constants/Colors.ts"
-
 import { useColorScheme } from '@/hooks/useColorScheme';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -17,7 +19,16 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 
+
+  // const setLastOpened =async()=>{      
+  //   const todayDate = new Date().toISOString().split('T')[0]
+  //   await AsyncStorage.setItem('lastOpened',JSON.stringify(todayDate))
+    
+  // }
+
   useEffect(() => {
+    // setLastOpened()
+
     if (loaded) {
       SplashScreen.hideAsync();
     }

@@ -6,12 +6,69 @@ import profileImage from "../../assets/images/master.webp"
 import bg from "../../assets/images/bg.jpeg"
 import {Colors} from "../../constants/Colors.ts"
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const profile = () => {
-  const curDate = new Date()
-  const tomorrowDate = new Date()
-  tomorrowDate.setDate(curDate.getDate() + 1)
+//The approach here is to store the previously opened date and streak count in local storage. We try 
+// retrieving it first and parse it. If the values don't exist it means its the user's first time loggin in. So we set the values and exit the function
+// If the values do exits, it means it's not the user's first time, and hence we have to check if streak is maintained
+
   const[streaks,setStreaks] = useState(0)
+  const today = new Date().toISOString().split('T')[0];
+
+const getDate = async () => {
+  const lastOpened = await AsyncStorage.getItem('lastOpened'); // Get last opened date from storage
+  const streakCount = await AsyncStorage.getItem('streaks'); // Get streak count from storage
+
+  // Parse retrieved values to be modified
+  const formattedLastOpened = lastOpened ? JSON.parse(lastOpened) : null;
+  const formattedStreaks = streakCount ? parseInt(streakCount) : 0;
+
+  
+  setStreaks(formattedStreaks);
+  // setStreaks(100) ->uncomment this line, and comment out the above line to check for streak resetting
+
+  // this means this is user's first time logging in, so the streak should be 1
+  // set the last opened date and streak count, then exit
+  if (!formattedLastOpened) {
+      setStreaks(1);
+      await AsyncStorage.setItem('streaks', "1");
+      await AsyncStorage.setItem('lastOpened', JSON.stringify(today));
+    return;
+  }
+
+  // last opened date exists in storage, meaning its not user's first time
+  const todayDate = new Date(today);
+  const lastOpenedDate = new Date(formattedLastOpened);
+  // const lastOpenedDate = new Date('2025-02-01') -> uncomment this line, and comment out the above line to check for streak resetting
+
+    // difference between today's and last opened date, considering the time also
+    const difference = (todayDate - lastOpenedDate) / (1000 * 60 * 60 * 24)
+
+      if (difference===1) {
+
+        setStreaks((prev) => {
+          const currentStreak = prev + 1;
+          AsyncStorage.setItem("streaks", JSON.stringify(currentStreak));
+          return currentStreak;
+        });
+      
+      } 
+      
+      else if (difference > 1) {
+        setStreaks(1);
+        await AsyncStorage.setItem("streaks", "1");
+      }
+
+  // Update last opened date
+  await AsyncStorage.setItem('lastOpened', JSON.stringify(today));
+};
+
+useEffect(() => {
+  getDate();
+}, []);
+
+
   return (
         <View
       style={styles.container}
@@ -49,8 +106,9 @@ const profile = () => {
         onPress={()=>Alert.alert("You have a continous streak of 34 days")}
 
         >
-          34
+          {streaks}
         </Text>
+        
       </View>
      
       <View
@@ -61,7 +119,6 @@ const profile = () => {
         margin:'5%',
         padding:"4%",
         borderRadius:'30 ',
-        // backgroundColor:'#38BDF8'
       }}
 >     
         <Text style={{color:Colors.light.text, fontSize:17, fontWeight:'bold'}}>
