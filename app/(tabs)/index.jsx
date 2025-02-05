@@ -18,8 +18,8 @@ export default function HomeScreen() {
           sound: true,
         },
         trigger: {
-          hour: 17, // 5 AM
-          minute: 52, // 40 minutes
+          hour: 17,
+          minute: 52, 
           second:0,
           repeats: true, // Repeat daily
         },

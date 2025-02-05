@@ -8,7 +8,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-toast-message';
 import InfoCard from '../../components/InfoCard.jsx';
 import Streak from '@/components/Streak.jsx';
-
+import LeaderBoard from '../../components/LeaderBoard.jsx';
+import Logout from '@/components/Logout.jsx';
 const profile = () => {
 //The approach here is to store the previously opened date and streak count in local storage. We try 
 // retrieving it first and parse it. If the values don't exist it means its the user's first time loggin in. So we set the values and exit the function
@@ -93,13 +94,13 @@ useEffect(()=>{
     
     
       <View style={styles.name}>
-          <Image source={profileImage} style={{ width: 60, height: 60,borderRadius:50 ,resizeMode:"cover"}}   />
+          <Image source={profileImage} style={styles.imageStyle}   />
           <Text
-          style={{color:Colors.light.text, fontSize:20, fontWeight:'bold', fontFamily:'Sansation'}}>
+          style={styles.username}>
             @johndoe32
           </Text>
           <Text
-          style={{color:Colors.light.text, fontSize:15, fontWeight:'thin', fontFamily:'Sansation'}}>
+          style={styles.playerName}>
             John Doe
           </Text>
           <View style={{
@@ -116,7 +117,9 @@ useEffect(()=>{
      
      <InfoCard/> 
      
+     <LeaderBoard />
       
+      <Logout/>
       </View>
     
     </View>
@@ -129,7 +132,7 @@ const styles = StyleSheet.create({
   container:{
     flex:1,
     padding:8,
-    backgroundColor:Colors.light.background,
+    backgroundColor:Colors.main.tabBackground,
    
   },
   profileCard:{
@@ -137,15 +140,47 @@ const styles = StyleSheet.create({
     borderRadius:10,
     width:350,
     marginTop:40,
-    resizeMode:'cover'
+    resizeMode:'cover',
+    elevation:30,
+    borderWidth:1,
+    borderColor:"#7A1CAC"
   } ,
-
-  name:{
+  imageStyle:{ 
+    width: 60, 
+    height: 60,
+    borderRadius:50 ,
+    resizeMode:"cover", 
+    borderWidth:1,
+    borderColor:"#7A1CAC"
+  },
+  
+    name:{
     flexDirection:'column',
     marginTop:20,
     fontSize:10,
     alignItems:'center'
   },
+
+  username:{
+    color:Colors.light.text,
+    fontSize:20,
+    fontWeight:'bold', 
+    fontFamily:'Sansation',
+    textShadowColor: '#2E073F', 
+      textShadowOffset: { width: 1, height: 0 }, 
+      textShadowRadius: 5,
+  },
+
+  playerName:{
+    color:Colors.light.text,
+  fontSize:15,
+  fontWeight:'thin',
+    fontFamily:'Sansation',
+    textShadowColor: '#2E073F', 
+    textShadowOffset: { width: 1, height: 0 }, 
+    textShadowRadius: 5,
+
+  }
 
 
 })
