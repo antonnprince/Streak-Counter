@@ -14,11 +14,11 @@ A sleek and minimal **React Native + Expo** app that helps users stay consistent
 
 ---
 
-## 📸 Screenshots
+## 📸 Screenshots 
 
 | Home Screen | Daily Tracker | Monthly Overview |
 |-------------|---------------|------------------|
-| ![Home Screen](./assets/screens/home.png) | ![Daily Tracker](./assets/screens/daily.png) | ![Monthly Overview](./assets/screens/monthly.png) |
+| ![Home Screen](./project/assets/home.png) | ![Daily Tracker](./project/assets/tasks.png) | ![Monthly Overview](./project/assets/challenges.png) |![Profile Screen](./project/assets/profile.png) |
 
 > 📝 Replace these placeholders with your own screenshots in the `./assets/screens/` folder.
 
