@@ -20,7 +20,6 @@ A sleek and minimal **React Native + Expo** app that helps users stay consistent
 |-------------|---------------|------------------|
 | ![Home Screen](./project/assets/home.png) | ![Daily Tracker](./project/assets/tasks.png) | ![Monthly Overview](./project/assets/challenges.png) |![Profile Screen](./project/assets/profile.png) |
 
-> 📝 Replace these placeholders with your own screenshots in the `./assets/screens/` folder.
 
 ---
 
@@ -30,4 +29,16 @@ A sleek and minimal **React Native + Expo** app that helps users stay consistent
 
 ```bash
 git clone https://github.com/your-username/streak-counter-app.git
-cd streak-counter-app
+cd Streak-Counter/project
+```
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Run the App
+
+```bash
+npx expo start
+```
